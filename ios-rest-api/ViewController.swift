@@ -10,14 +10,22 @@ import UIKit
 
     let DomainURL = "http://216.186.69.45/services/device/"
     
-    class User {
+class User: Codable {
+    var UserID: String?
+    var FirstName: String?
+    var LastName: String?
+    var PhoneNumber: String?
+    var SID: String?
         
-        static func fetch(){
+    static func fetch(){
             let URLstring = DomainURL + "users/"
             if let url = URL.init(string: URLstring){
                 let task = URLSession.shared.dataTask(with: url, completionHandler:
                 {(dataFromAPI, response, error) in
                     print(String.init(data:dataFromAPI!, encoding: .ascii) ?? "no data")
+                    if let myUsers:[User] = try? JSONDecoder().decode([User].self, from:  dataFromAPI!){
+                        print(myUsers[2].FirstName ?? "No name")
+                    }
                 })
                 task.resume()
             }
