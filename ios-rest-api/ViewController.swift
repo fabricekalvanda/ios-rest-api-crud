@@ -17,20 +17,44 @@ class User: Codable {
     var PhoneNumber: String?
     var SID: String?
         
-    static func fetch(){
-            let URLstring = DomainURL + "users/6"
+    static func fetch(withID id:String){
+            let URLstring = DomainURL + "users/\(id)"
             if let url = URL.init(string: URLstring){
                 let task = URLSession.shared.dataTask(with: url, completionHandler:
                 {(dataFromAPI, response, error) in
                     print(String.init(data:dataFromAPI!, encoding: .ascii) ?? "no data")
-                    if let myUsers = try? JSONDecoder().decode(User.self, from:  dataFromAPI!){
-                        print(myUsers.FirstName ?? "No name")
+                    if let myUser = try? JSONDecoder().decode(User.self, from:  dataFromAPI!){
+                        print(myUser.FirstName ?? "No name")
                     }
                 })
                 task.resume()
             }
-        }
     }
+    // Create a new User record using a REST API "POST"
+    func postToServer(){
+        let URLstring = DomainURL + "users/"
+        var postRequest = URLRequest.init(url: URL.init(string: URLstring)!)
+        postRequest.httpMethod = "POST"
+        
+        //TODO: Encode the user object itself as JSON and assign to the body
+        
+        //TODO: Create the URLSession task to invoke the request
+        
+        task.resume()
+    }
+    
+    // Update this User record using a REST API "PUT"
+    func updateServer(){
+        
+    }
+    
+    // Delete this User record using a REST API "DELETE"
+    func deleteFromServer(){
+        
+    }
+}
+
+
 
 class ViewController: UIViewController {
     
@@ -40,7 +64,24 @@ class ViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        User.fetch()
+        //User.fetch(withID: 2)
+        
+        //TODO: Assign values to this User object properties
+        let myUser = User()
+        myUser.FirstName = nil
+        myUser.LastName = nil
+        myUser.PhoneNumber = nil
+        
+        //Test POST method
+        myUser.postToServer()
+        
+        //Test PUT method
+        myUser.SID = "123456789"
+        myUser.updateServer()
+        
+        //Test DELETE method
+        myUser.deleteFromServer()
+        
     }
 
 
