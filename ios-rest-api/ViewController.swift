@@ -44,12 +44,12 @@ class User: Codable {
     }
     
     // Update this User record using a REST API "PUT"
-    func updateServer(){
+    func updateServer(withID id:Int){
         
     }
     
     // Delete this User record using a REST API "DELETE"
-    func deleteFromServer(){
+    func deleteFromServer(withID id:Int){
         
     }
 }
@@ -77,10 +77,10 @@ class ViewController: UIViewController {
         
         //Test PUT method
         myUser.SID = "123456789"
-        myUser.updateServer()
+        //myUser.updateServer(withID: <#T##Int#>)
         
         //Test DELETE method
-        myUser.deleteFromServer()
+        //myUser.deleteFromServer(withID: <#T##Int#>)
         
     }
 
