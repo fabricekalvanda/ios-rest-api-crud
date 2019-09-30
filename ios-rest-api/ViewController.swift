@@ -16,8 +16,9 @@ class User: Codable {
     var LastName: String?
     var PhoneNumber: String?
     var SID: String?
-        
-    static func fetch(withID id:String){
+    
+    // Read an User record from the server
+    static func fetch(withID id:Int){
             let URLstring = DomainURL + "users/\(id)"
             if let url = URL.init(string: URLstring){
                 let task = URLSession.shared.dataTask(with: url, completionHandler:
@@ -40,7 +41,7 @@ class User: Codable {
         
         //TODO: Create the URLSession task to invoke the request
         
-        task.resume()
+        //task.resume()
     }
     
     // Update this User record using a REST API "PUT"
@@ -64,7 +65,7 @@ class ViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        //User.fetch(withID: 2)
+        User.fetch(withID: 2)
         
         //TODO: Assign values to this User object properties
         let myUser = User()
